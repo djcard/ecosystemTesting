@@ -1,0 +1,58 @@
+{
+    "author":"Dan Card",
+    "bugs":"https://github.com/djcard/ecosystemTesting/issues",
+    "changelog":"",
+    "contributors":[],
+    "dependencies":{},
+    "description":"",
+    "devDependencies":{},
+    "documentation":"",
+    "homepage":"",
+    "ignore":[
+        "**/.*",
+        "/test/",
+        "/tests/"
+    ],
+    "installPaths":{},
+    "instructions":"",
+    "keywords":[],
+    "license":[
+        {
+            "type":"MIT",
+            "URL":""
+        }
+    ],
+    "location":"ForgeboxStorage",
+    "name":"Test Site Setup",
+    "private":false,
+    "projectURL":"https://github.com/djcard/ecosystemTesting",
+    "repository":{
+        "type":"git",
+        "URL":"https://github.com/djcard/ecosystemTesting"
+    },
+    "scripts":{},
+    "shortDescription":"A tool to configure an ecosystem of multiple projects from multiple repos, typically for a feature testing process.e",
+    "slug":"ecosystemTesting",
+    "testbox":{
+        "bundles":"",
+        "directory":"tests.specs",
+        "excludes":"",
+        "labels":"",
+        "options":{},
+        "recurse":true,
+        "reporter":"",
+        "runner":[
+            {
+                "default":""
+            }
+        ],
+        "testBundles":"",
+        "testSpecs":"",
+        "testSuites":"",
+        "verbose":true,
+        "watchDelay":500,
+        "watchPaths":"**.cfc"
+    },
+    "type":"commandbox-modules",
+    "version":"0.0.56"
+}
