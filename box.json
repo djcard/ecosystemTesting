@@ -23,7 +23,7 @@
         }
     ],
     "location":"ForgeboxStorage",
-    "name":"Test Site Setup",
+    "name":"Ecosystem Testing",
     "private":false,
     "projectURL":"https://github.com/djcard/ecosystemTesting",
     "repository":{
@@ -54,5 +54,5 @@
         "watchPaths":"**.cfc"
     },
     "type":"commandbox-modules",
-    "version":"0.0.56"
+    "version":"0.0.57"
 }
