@@ -4,6 +4,10 @@ component {
     property name="base" inject="BaseCommand";
     property name="settings" inject="commandbox:configsettings";
 
+    function commandPrefix(){
+        return server.os.name == "Linux" ? "sudo" : "";
+    }
+
     function checkModuleKeyExists() {
         print.line(settings);
         if (!settings.keyExists('modules')) {
@@ -66,8 +70,8 @@ component {
 
     function clearFolder(folderpath) {
         if( server.os.name == "Linux" ) {
-           try{base.command('!sudo rm -r #folderpath#/*').run();}catch(any err){ print.line("Could not delete Folder");}
-            try{base.command('!sudo rm -r #folderpath#/.[!.]* ..?*').run();}catch(any err){ print.line("Could not delete files with leading .");}
+           try{base.command('!#commandPrefix()# rm -r #folderpath#/*').run();}catch(any err){ print.line("Could not delete Folder");}
+            try{base.command('!#commandPrefix()# rm -r #folderpath#/.[!.]* ..?*').run();}catch(any err){ print.line("Could not delete files with leading .");}
         }
         else{
             directoryList(folderpath).each(function(item){
@@ -93,22 +97,22 @@ component {
     function cloneSite(required string sitename, required string projectName) {
         var data = settings.modules.sitesetup[projectName];
         var sitedata = obtainSiteData(arguments.sitename, arguments.projectName);
-        print.line(siteData).toConsole();
-
-        base.command('!git clone  #createDomainLogin(sitedata.repoSite, data.username, data.pat)##siteData.reponame#.git #arguments.folder#').run();
+        base.command('!#commandPrefix()# git clone  #createDomainLogin(sitedata.repoSite, data.username, data.pat)##siteData.reponame#.git #arguments.folder#').run();
     }
 
     function createDomainLogin(repoSite, username, token){
         return repoSite=="gitlab"
             ? "https://#username#:#token#@gitlab.com/"
-            : repoSite =="gitlab"
+            : repoSite =="github"
                 ? "https://#username#:#token#@github.com/"
                 : "";
     }
 
     function cloneBranch(repo, branch, folder, projectName, siteName, repoSite) {
         var data = settings.modules.sitesetup[projectName];
-        base.command('!git clone  --branch #branch# #createDomainLogin(arguments.repoSite, data.username, data.pat)##repo#.git #arguments.folder#')
+
+        print.line(" Running: '!#commandPrefix()# git clone  --branch #branch# #createDomainLogin(arguments.repoSite, data.username, data.pat)##repo#.git #arguments.folder#'").toConsole();
+        base.command('!#commandPrefix()# git clone  --branch #branch# #createDomainLogin(arguments.repoSite, data.username, data.pat)##repo#.git #arguments.folder#')
             .run();
     }
 
@@ -138,7 +142,7 @@ component {
             try {
                 print.line(' #item# ').toConsole();
                 try{base.command('#item#').run();} catch(any err){
-                    print.line("Commant #item# failed. Continuing").toConsole();
+                    print.line("Command #item# failed. Continuing").toConsole();
                 }
             } catch (any err) {
                 print.line(err.message);
@@ -148,13 +152,13 @@ component {
 
     function changeBranch(branch, folderPath, projectName) {
         base.command('cd #folderPath#').run();
-        base.command('!git checkout #branch#').run();
+        base.command('!#commandPrefix()# git checkout #branch#').run();
         goHome(projectName);
     }
 
     function mergeInto(branch, folderPath, projectName) {
         base.command('cd #folderPath#').run();
-        base.command('!git merge #branch#').run();
+        base.command('!#commandPrefix()# git merge #branch# -m "Evergreening" ').run();
         goHome(projectName);
     }
 
@@ -174,7 +178,7 @@ component {
                 fileCopy(fromFileName, toFileName);
             } catch(any err) {
                 print.line('#fromFileName# did not exist! Should it?').toConsole();
-                print.line(e.message);
+                print.line(err.message);
             }
         });
     }
@@ -190,7 +194,7 @@ component {
     }
 
     function obtainDockerContainers(){
-        var allDockerSites = base.command("!docker").params("ps --all --no-trunc --format='{{json .}}'").run(returnOutput=true);
+        var allDockerSites = base.command("!#commandPrefix()# docker").params("ps --all --no-trunc --format='{{json .}}'").run(returnOutput=true);
         var allContainers =  allDockerSites.listToArray(chr(10)).map(function(item){
             return isJson(item) ? deserializeJSON(item) : item;
         });
@@ -199,7 +203,7 @@ component {
 
     function restartContainer( containerName = ""){
         if(arguments.containerName.len()){
-            try{base.command("!docker").params("restart #containerName#").run();} catch(any err){
+            try{base.command("! #commandPrefix()# docker").params("restart #containerName#").run();} catch(any err){
                 print.line("Could not start #containerName#. Continuing").toConsole();
             }
         }

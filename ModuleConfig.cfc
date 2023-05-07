@@ -1,5 +1,5 @@
 /**
- * Configuration module for CBDatasource
+ * Configuration module for Ecosystem Testing
  */
 component {
 

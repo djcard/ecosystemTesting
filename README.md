@@ -74,3 +74,10 @@ Example script for a JS site
 "!docker-compose build controlSite"
 
 To run an external file either use something like `recipe myScript.boxr`, `!myScript.bat` or `!bash myScript.sh`.
+
+# Changelog
+0.0.62 - Fixed path for github sites; added commandPrefix to add `sudo` for linux installations.
+0.0.61 - Scripted an automatic commit message when evergreening the branch
+0.0.60 - fixed typo in error messaging
+0.0.59 - really added sudo to ALL linux commands
+0.0.58 - added sudo to all linux commands

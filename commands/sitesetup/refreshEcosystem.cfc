@@ -5,6 +5,7 @@ component {
 
     function run(required string projectName, required evergreenBranches, boolean startDocker=false) {
         print.line('Refreshing project: #projectName#');
+        print.line(settings.modules.siteSetup.keyArray());
         var rootFolder = expandPath(settings.modules.siteSetup[projectName].rootFolder);
         print.line('Using Root folder: #rootFolder#');
         var projectData = core.obtainData(rootFolder);
@@ -32,16 +33,17 @@ component {
         });
         print.line(projectData).toConsole();
         print.line("Site has usesDocker?: #projectData.keyExists("usesDocker")#").toConsole();
-            print.line("Site uses Docker?: #projectData.usesDocker#").toConsole();
-            print.line("Start Docker?: #arguments.startDocker#").toConsole();
+        print.line("Site uses Docker?: #projectData.usesDocker#").toConsole();
+        print.line("Start Docker?: #arguments.startDocker#").toConsole();
 
         if(projectData.keyExists("usesDocker") && projectData.usesDocker && arguments.startDocker){
-            try{command("!docker-compose start").run();} catch(any err){
-                print.line("Error: #err.message#. Contuniing").toConsole();
-            }
-            try{command("!docker-compose up -d").run();} catch(any err){
-                print.line("Error: #err.message#. Continuing");
-            }
+            print.line("In sute the docker part!").toConsole();
+            //try{command("!docker-compose start").run();} catch(any err){
+            //    print.line("Error: #err.message#. Contuniing").toConsole();
+            //}
+            //try{command("!docker-compose up -d").run();} catch(any err){
+            //    print.line("Error: #err.message#. Continuing");
+            //}
         }
     }
 

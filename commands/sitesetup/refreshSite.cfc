@@ -40,7 +40,7 @@ component {
             siteData.repoSite
         );
 
-        print.line('switching to the #siteData.parentBranch# branch of #siteData.repoName# into /#siteData.homeFolder#');
+        print.line('switching to the #siteData.parentBranch# branch of #siteData.repoName# in /#siteData.homeFolder#');
         core.changeBranch(arguments.branch, rootFolder & siteData.homeFolder, arguments.projectName);
         if(arguments.evergreenBranches) {
             print.line('merging #siteData.parentBranch# into  #branch#');
@@ -54,7 +54,7 @@ component {
         print.line('Running Scripts');
         core.runScripts(siteData, arguments.projectName);
 
-        if(siteData.keyExists("dockerContainer") && siteData.dockerContainer.len()){
+        if(siteData.keyExists("usesDocker") && siteData.usesDocker && siteData.keyExists("dockerContainer") && siteData.dockerContainer.len()){
             try{core.restartContainer( siteName );} catch(any err){
                 print.line("Could not restart #sitedata.dockerContainer#");
             }
