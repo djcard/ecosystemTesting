@@ -11,49 +11,49 @@ component {
     function checkModuleKeyExists() {
         print.line(settings);
         if (!settings.keyExists('modules')) {
-            try{base.command('config set modules={siteSetup:{}}}').run();} catch(any err){};
-        } else  if (!settings.modules.keyExists('siteSetup')) {
-            try{base.command('config set modules.siteSetup={}').run();} catch(any err){};
+            try{base.command('config set modules={ecosystemTesting:{}}}').run();} catch(any err){};
+        } else  if (!settings.modules.keyExists('ecosystemTesting')) {
+            try{base.command('config set modules.ecosystemTesting={}').run();} catch(any err){};
         }
     }
 
-    function checkDataSource(required string folderPath = settings.modules.sitesetup.rootfolder) {
+    function checkDataSource(required string folderPath = settings.modules.ecosystemTesting.rootfolder) {
         if (!doesJsonExist(arguments.folderPath)) {
             createJsonDataFile(arguments.folderPath);
         }
         return true;
     }
 
-    function doesJsonExist(required string folderPath = settings.modules.sitesetup.rootfolder) {
-        return fileExists(folderPath & 'siteSetup.json');
+    function doesJsonExist(required string folderPath = settings.modules.ecosystemTesting.rootfolder) {
+        return fileExists(folderPath & 'ecosystemTesting.json');
     }
 
-    function createJsonDataFile(folderPath = settings.modules.sitesetup.rootfolder) {
-        return fileWrite(folderPath & 'siteSetup.json', serializeJSON(dataModel()));
+    function createJsonDataFile(folderPath = settings.modules.ecosystemTesting.rootfolder) {
+        return fileWrite(folderPath & 'ecosystemTesting.json', serializeJSON(dataModel()));
     }
 
-    function obtainData(folderPath = settings.modules.sitesetup.rootfolder) {
+    function obtainData(folderPath = settings.modules.ecosystemTesting.rootfolder) {
         checkDataSource(arguments.folderPath);
-        var rawData = fileRead(arguments.folderPath & 'siteSetup.json');
+        var rawData = fileRead(arguments.folderPath & 'ecosystemTesting.json');
         return !isStruct(rawData) ? deserializeJSON(rawData) : rawData;
     }
 
     function obtainProjectData(required string projectName) {
         print.line("In Obtain Project Data").toConsole();
-        //print.line(settings.modules.siteSetup[arguments.projectName]).toConsole();
-        var folderPath = settings.modules.siteSetup[projectName].rootFolder;
+        //print.line(settings.modules.ecosystemTesting[arguments.projectName]).toConsole();
+        var folderPath = settings.modules.ecosystemTesting[projectName].rootFolder;
         if(!directoryExists(folderPath)){
             print.line("That project folder does not exist").toConsole();
             return;
         }
         print.line(folderPath).toConsole();
         checkDataSource(folderPath);
-        var rawData = fileRead(folderPath & 'siteSetup.json');
+        var rawData = fileRead(folderPath & 'ecosystemTesting.json');
         return !isStruct(rawData) ? deserializeJSON(rawData) : rawData;
     }
 
-    function writeData(folderPath = settings.modules.sitesetup.rootfolder, data) {
-        fileWrite(folderpath & 'siteSetup.json', serializeJSON(arguments.data));
+    function writeData(folderPath = settings.modules.ecosystemTesting.rootfolder, data) {
+        fileWrite(folderpath & 'ecosystemTesting.json', serializeJSON(arguments.data));
     }
 
     function obtainSiteData(siteName, projectName) {
@@ -62,8 +62,8 @@ component {
     }
 
     function obtainRootFolder(projectName) {
-        var data = settings.modules.sitesetup[projectName];
-        return settings.modules.sitesetup.keyExists(projectName) && settings.modules.sitesetup[projectName].keyExists('rootfolder')
+        var data = settings.modules.ecosystemTesting[projectName];
+        return settings.modules.ecosystemTesting.keyExists(projectName) && settings.modules.ecosystemTesting[projectName].keyExists('rootfolder')
          ? data.rootfolder
          : '';
     }
@@ -95,7 +95,7 @@ component {
     }
 
     function cloneSite(required string sitename, required string projectName) {
-        var data = settings.modules.sitesetup[projectName];
+        var data = settings.modules.ecosystemTesting[projectName];
         var sitedata = obtainSiteData(arguments.sitename, arguments.projectName);
         base.command('!#commandPrefix()# git clone  #createDomainLogin(sitedata.repoSite, data.username, data.pat)##siteData.reponame#.git #arguments.folder#').run();
     }
@@ -109,7 +109,7 @@ component {
     }
 
     function cloneBranch(repo, branch, folder, projectName, siteName, repoSite) {
-        var data = settings.modules.sitesetup[projectName];
+        var data = settings.modules.ecosystemTesting[projectName];
 
         print.line(" Running: '!#commandPrefix()# git clone  --branch #branch# #createDomainLogin(arguments.repoSite, data.username, data.pat)##repo#.git #arguments.folder#'").toConsole();
         base.command('!#commandPrefix()# git clone  --branch #branch# #createDomainLogin(arguments.repoSite, data.username, data.pat)##repo#.git #arguments.folder#')
@@ -190,7 +190,7 @@ component {
     }
 
     function goHome(projectName = '') {
-        base.command('cd #settings.modules.sitesetup[projectName].rootfolder#').run();
+        base.command('cd #settings.modules.ecosystemTesting[projectName].rootfolder#').run();
     }
 
     function obtainDockerContainers(){

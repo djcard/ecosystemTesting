@@ -18,7 +18,7 @@ Use CommandBox and install using `box install ecosystemTesting`
 
 #### Start a project
 1. Create a folder to house the project. Each of the sites will be set up in a subfolder from here. 
-2. From CommandBox run `sitesetup configure`
+2. From CommandBox run `ecosystemTesting configure`
 3. Give the project a name ( typically one word )
 4. Give the project a root folder ( defaults to the current directory )
 5. Enter your repo username (This remains in the CommandBox config and is not written to the project files.)
@@ -40,7 +40,7 @@ Use CommandBox and install using `box install ecosystemTesting`
 
 ### Using EcosystemTest
 Once all the sites are configured you can refresh all or part of the ecosystem. 
-1. Run `sitesetup refreshEcosystem _projectname_` This will display a list of the sites in this project.
+1. Run `ecosystemTesting refreshEcosystem _projectname_` This will display a list of the sites in this project.
 2. Use the spacebar to toggle which sites to refresh.
 3. Enter the branches for each site to be pulled.
 4. Choose whether the branch should be "evergreen" (refreshed from the parent branch) before testing.
@@ -48,7 +48,7 @@ Once all the sites are configured you can refresh all or part of the ecosystem.
 
 ### Life Cycle
 Each time a site is refreshed it follows this cycle:
-1. Information about the site is retrienved from both CommandBox and the siteSetup.json file in the root of the project
+1. Information about the site is retrienved from both CommandBox and the ecosystemTesting.json file in the root of the project
 2. The system attempts to stop and forget any servers in the site's folders.
 3. All files and folders in the site folder are deleted
 4. The site is cloned from the repo and switched into the desired branch
@@ -76,6 +76,7 @@ Example script for a JS site
 To run an external file either use something like `recipe myScript.boxr`, `!myScript.bat` or `!bash myScript.sh`.
 
 # Changelog
+0.0.63 - updated command namespace to ecosystemTesting
 0.0.62 - Fixed path for github sites; added commandPrefix to add `sudo` for linux installations.
 0.0.61 - Scripted an automatic commit message when evergreening the branch
 0.0.60 - fixed typo in error messaging

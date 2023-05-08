@@ -1,6 +1,6 @@
 component {
     property name="settings" inject="commandbox:configsettings:modules";
-    property name="core" inject="core@sitesetup";
+    property name="core" inject="core@ecosystemTesting";
 
     function run(required string projectName) {
 

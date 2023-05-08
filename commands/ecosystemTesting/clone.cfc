@@ -1,6 +1,6 @@
 component {
 
-    property name="core" inject="core@sitesetup";
+    property name="core" inject="core@ecosystemTesting";
 
     function run2(siteName, projectName, branch = 'dev') {
         var siteData = core.obtainSiteData(siteName, projectName);

@@ -3,9 +3,9 @@
  */
 component {
 
-    this['moduleMapping'] = 'siteSetup'; // cflint ignore:line
-    this['modelNamespace'] = 'siteSetup'; // cflint ignore:line
-    this['cfmapping'] = 'siteSetup'; // cflint ignore:line
+    this['moduleMapping'] = 'ecosystemTesting'; // cflint ignore:line
+    this['modelNamespace'] = 'ecosystemTesting'; // cflint ignore:line
+    this['cfmapping'] = 'ecosystemTesting'; // cflint ignore:line
 
     /**
      * The minimum functions needed to run ModuleConfig

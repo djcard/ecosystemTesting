@@ -1,12 +1,12 @@
 component {
 
-    property name="core" inject="core@sitesetup";
+    property name="core" inject="core@ecosystemTesting";
     property name="settings" inject="commandbox:configsettings";
 
     function run(required string projectName, required evergreenBranches, boolean startDocker=false) {
         print.line('Refreshing project: #projectName#');
-        print.line(settings.modules.siteSetup.keyArray());
-        var rootFolder = expandPath(settings.modules.siteSetup[projectName].rootFolder);
+        print.line(settings.modules.ecosystemTesting.keyArray());
+        var rootFolder = expandPath(settings.modules.ecosystemTesting[projectName].rootFolder);
         print.line('Using Root folder: #rootFolder#');
         var projectData = core.obtainData(rootFolder);
         if(!projectData.keyExists("projects") || !projectData.projects.keyExists(projectName)){
@@ -29,7 +29,7 @@ component {
         }
 
         repoData.each(function(item) {
-            command('siteSetup refreshSite projectname=#projectname# sitename=#item# branch=#repoData[item]# evergreenBranches=#evergreenBranches#').run();
+            command('ecosystemTesting refreshSite projectname=#projectname# sitename=#item# branch=#repoData[item]# evergreenBranches=#evergreenBranches#').run();
         });
         print.line(projectData).toConsole();
         print.line("Site has usesDocker?: #projectData.keyExists("usesDocker")#").toConsole();

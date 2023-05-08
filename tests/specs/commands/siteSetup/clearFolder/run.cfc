@@ -22,7 +22,7 @@ component extends="coldbox.system.testing.BaseTestCase" {
       labels = "automated",
       body   = function() {
         beforeEach( function() {
-          testObj = getinstance( "clearFolder@sitesetup" );
+          testObj = getinstance( "clearFolder@ecosystemTesting" );
           writeDump(testObj);
         } );
         it( "should return a struct with the keys offset, maxRows, page, totalRecords, and totalPages", function() {

@@ -1,6 +1,6 @@
 component {
 
-    property name="core" inject="core@siteSetup";
+    property name="core" inject="core@ecosystemTesting";
     property name="settings" inject="commandbox:configsettings";
 
 
@@ -12,7 +12,7 @@ component {
         var projectName = ask(message = 'What is the name of this project? : ');
         data.projects[projectname] = data.projects.keyExists(projectName) ? data.projects[projectName] : core.projectModel();
 
-        var projectSettings = settings.modules.siteSetup.keyExists(projectName) ? settings.modules.siteSetup[projectName] : {};
+        var projectSettings = settings.modules.ecosystemTesting.keyExists(projectName) ? settings.modules.ecosystemTesting[projectName] : {};
 
         var rootFolder = ask(
             message = 'What is the root folder of the project (Please end with trailing slash)? : ',
@@ -21,19 +21,19 @@ component {
             ].rootFolder : getcwd()
         );
         data.projects[projectName].rootfolder = rootFolder;
-        command('config set modules.siteSetup.#projectName#.rootfolder=#rootFolder#').run();
+        command('config set modules.ecosystemTesting.#projectName#.rootfolder=#rootFolder#').run();
 
         var username = ask(
             message = 'What is your repository username? :',
             defaultResponse = projectSettings.keyExists('username') && projectSettings.username.len() ? projectSettings.username : ''
         );
-        command('config set modules.siteSetup.#projectname#.username=#username#').run();
+        command('config set modules.ecosystemTesting.#projectname#.username=#username#').run();
 
         var pat = ask(
             message = 'What is your repository PAT (remains local to this machine)? : ',
             defaultResponse = projectSettings.keyExists('pat') && projectSettings.pat.len() ? projectSettings.pat : ''
         );
-        command('config set modules.siteSetup.#projectname#.pat=#pat#').run();
+        command('config set modules.ecosystemTesting.#projectname#.pat=#pat#').run();
 
         core.createENVFolder(rootFolder);
 

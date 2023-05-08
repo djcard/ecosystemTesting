@@ -1,11 +1,11 @@
 component {
 
-    property name="core" inject="core@sitesetup";
+    property name="core" inject="core@ecosystemTesting";
     property name="settings" inject="commandbox:configsettings";
 
     function run(required string sitename, required string branch, required string projectName, required evergreenBranches) {
         core.goHome(arguments.projectName);
-        var rootFolder = settings.modules.siteSetup[projectName].rootFolder;
+        var rootFolder = settings.modules.ecosystemTesting[projectName].rootFolder;
         var projectData = core.obtainData(projectName);
         print.line('Getting site Data for #sitename#').toConsole();
         var siteData = core.obtainSiteData(siteName, projectName);
@@ -23,7 +23,7 @@ component {
             } catch (any err) {
                 //print.line('Error stopping server: #err.message#').toConsole();
             }
-            command('siteSetup goHome #arguments.projectName#').run();
+            command('ecosystemTesting goHome #arguments.projectName#').run();
 
             print.line('clearing ' & rootFolder & siteData.homeFolder).toConsole();
             core.clearFolder(rootFolder & siteData.homeFolder);
