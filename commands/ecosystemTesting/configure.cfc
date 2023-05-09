@@ -12,7 +12,9 @@ component {
         var projectName = ask(message = 'What is the name of this project? : ');
         data.projects[projectname] = data.projects.keyExists(projectName) ? data.projects[projectName] : core.projectModel();
 
-        var projectSettings = settings.modules.ecosystemTesting.keyExists(projectName) ? settings.modules.ecosystemTesting[projectName] : {};
+        var projectSettings = settings.modules.ecosystemTesting.keyExists(projectName) ? settings.modules.ecosystemTesting[
+            projectName
+        ] : {};
 
         var rootFolder = ask(
             message = 'What is the root folder of the project (Please end with trailing slash)? : ',
@@ -42,7 +44,7 @@ component {
         var site = ask('Set up site? y/n : ');
         while (site != 'n') {
             setupsite(projectName);
-            site=ask('Set up another site? y/n : ');
+            site = ask('Set up another site? y/n : ');
         }
     }
 
@@ -69,11 +71,10 @@ component {
         data.projects[projectName].sites[sitename] = data.projects[projectName].sites.keyExists(sitename) ? data.projects[
             projectName
         ].sites[sitename] : core.siteModel();
-print.line(data.projects[projectName]);
 
-        data.projects[projectName].sites[sitename]['repoSite'] = multiselect(message = 'What Repo Host do you want to use? : ')
-                .options(["gitlab","github"])
-                .ask();
+        data.projects[projectName].sites[sitename]['repoSite'] = multiselect(
+            message = 'What Repo Host do you want to use? : '
+        ).options(['gitlab', 'github']).ask();
 
 
         data.projects[projectName].sites[sitename]['repoName'] = ask(
@@ -111,8 +112,8 @@ print.line(data.projects[projectName]);
             ].port.len() ? data.projects[projectName].sites[sitename].port : 80
         );
 
-        var fileNameResponse = data.projects[projectName].sites[sitename]['fileNames'].map(function(item){
-           return "#item.source#:#item.target#";
+        var fileNameResponse = data.projects[projectName].sites[sitename]['fileNames'].map(function(item) {
+            return '#item.source#:#item.target#';
         });
 
         var envFiles = ask(
@@ -120,12 +121,11 @@ print.line(data.projects[projectName]);
             defaultResponse = fileNameResponse.len() ? fileNameResponse.tolist() : ''
         );
 
-        data.projects[projectName].sites[sitename]['fileNames'] = envFiles.listToArray().map(function(item){
-            return {
-                "source":listFirst(item,":"),
-                "target":listlast(item,":")
-                };
-        });
+        data.projects[projectName].sites[sitename]['fileNames'] = envFiles
+            .listToArray()
+            .map(function(item) {
+                return {'source': listFirst(item, ':'), 'target': listLast(item, ':')};
+            });
 
         data.projects[projectName].sites[sitename]['framework'] = multiselect(
             message = 'What is the framework of this site? : ',
@@ -142,18 +142,21 @@ print.line(data.projects[projectName]);
             ].sites[sitename].launchScripts.len() ? data.projects[projectName].sites[sitename].launchScripts.toList() : ''
         );
 
-        data.projects[ projectName ].sites[sitename].launchScripts = scripts.listToArray().map(function(item){
-            return item;
-        });
+        data.projects[projectName].sites[sitename].launchScripts = scripts
+            .listToArray()
+            .map(function(item) {
+                return item;
+            });
 
         data.projects[projectName].sites[sitename]['dockerContainer'] = ask(
             message = 'What is the name of the site docker container (if any. leave blank for none) ? : ',
             defaultResponse = data.projects[projectName].sites[sitename].keyExists('dockerContainer')
-                && data.projects[projectName].sites[ sitename ].dockerContainer.len()
-                    ? data.projects[projectName].sites[sitename].dockerContainer
-                    : data.projects[projectName].sites[sitename].repoName.len()
-                        ? data.projects[projectName].sites[sitename].repoName
-                        : '');
+            && data.projects[projectName].sites[sitename].dockerContainer.len()
+             ? data.projects[projectName].sites[sitename].dockerContainer
+             : data.projects[projectName].sites[sitename].repoName.len()
+             ? data.projects[projectName].sites[sitename].repoName
+             : ''
+        );
 
         core.writeData(getCwd(), data);
     }

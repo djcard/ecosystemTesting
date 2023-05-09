@@ -3,7 +3,12 @@ component {
     property name="core" inject="core@ecosystemTesting";
     property name="settings" inject="commandbox:configsettings";
 
-    function run(required string sitename, required string branch, required string projectName, required evergreenBranches) {
+    function run(
+        required string sitename,
+        required string branch,
+        required string projectName,
+        required evergreenBranches
+    ) {
         core.goHome(arguments.projectName);
         var rootFolder = settings.modules.ecosystemTesting[projectName].rootFolder;
         var projectData = core.obtainData(projectName);
@@ -15,13 +20,13 @@ component {
             try {
                 command('server stop').run();
             } catch (any err) {
-                //print.line('Error stopping server: #err.message#').toConsole();
+                // print.line('Error stopping server: #err.message#').toConsole();
             }
             sleep(2000);
             try {
                 command('server forget --force').run();
             } catch (any err) {
-                //print.line('Error stopping server: #err.message#').toConsole();
+                // print.line('Error stopping server: #err.message#').toConsole();
             }
             command('ecosystemTesting goHome #arguments.projectName#').run();
 
@@ -42,11 +47,11 @@ component {
 
         print.line('switching to the #siteData.parentBranch# branch of #siteData.repoName# in /#siteData.homeFolder#');
         core.changeBranch(arguments.branch, rootFolder & siteData.homeFolder, arguments.projectName);
-        if(arguments.evergreenBranches) {
+        if (arguments.evergreenBranches) {
             print.line('merging #siteData.parentBranch# into  #branch#');
             core.mergeInto(siteData.parentBranch, rootFolder & siteData.homeFolder, arguments.projectName);
         } else {
-            print.line("Skipping evergreening the branch").toConsole();
+            print.line('Skipping evergreening the branch').toConsole();
         }
         print.line('Getting files');
         core.obtainFiles(arguments.projectName, siteName);
@@ -54,14 +59,27 @@ component {
         print.line('Running Scripts');
         core.runScripts(siteData, arguments.projectName);
 
-        if(siteData.keyExists("usesDocker") && siteData.usesDocker && siteData.keyExists("dockerContainer") && siteData.dockerContainer.len()){
-            try{core.restartContainer( siteName );} catch(any err){
-                print.line("Could not restart #sitedata.dockerContainer#");
+        if (siteData.framework == 'javascript') {
+            print.line('Forcing rebuild of image');
+            try {
+                core.reBuildImage(arguments.sitename);
+            } catch (any err) {
+                print.line('Could not rebuild image');
+            }
+        }
+
+        if (
+            projectData.keyExists('usesDocker') && projectData.usesDocker && siteData.keyExists('dockerContainer') && siteData.dockerContainer.len()
+        ) {
+            try {
+                core.restartContainer(siteName);
+            } catch (any err) {
+                print.line('Could not restart #sitedata.dockerContainer#');
             }
         }
 
 
-        //core.prepSite(siteName, projectName);
+        // core.prepSite(siteName, projectName);
 
         core.goHome(projectName);
     }

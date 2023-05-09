@@ -3,7 +3,9 @@
     "bugs":"https://github.com/djcard/ecosystemTesting/issues",
     "changelog":"",
     "contributors":[],
-    "dependencies":{},
+    "dependencies":{
+        "s3sdk":"^5.7.0+91"
+    },
     "description":"",
     "devDependencies":{},
     "documentation":"",
@@ -13,7 +15,9 @@
         "/test/",
         "/tests/"
     ],
-    "installPaths":{},
+    "installPaths":{
+        "s3sdk":"modules/s3sdk/"
+    },
     "instructions":"",
     "keywords":[],
     "license":[

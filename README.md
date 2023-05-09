@@ -76,6 +76,10 @@ Example script for a JS site
 To run an external file either use something like `recipe myScript.boxr`, `!myScript.bat` or `!bash myScript.sh`.
 
 # Changelog
+0.0.68 - added force rebuild of JS sites
+0.0.67 - post install restart of docker edited
+0.0.65 - better handling for project data for projects which don't exist
+0.0.64 - added post install script to add config.modules.ecosystemTesting.installed=true
 0.0.63 - updated command namespace to ecosystemTesting
 0.0.62 - Fixed path for github sites; added commandPrefix to add `sudo` for linux installations.
 0.0.61 - Scripted an automatic commit message when evergreening the branch
