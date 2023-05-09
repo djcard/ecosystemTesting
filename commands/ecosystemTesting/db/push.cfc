@@ -29,9 +29,7 @@ component {
     }
 
     function getURL(bucketname, path) {
-        aws.setAccessKey('AKIAWXG4ZE6XXOT4ZMVF');
-        aws.setSecretKey('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');
-        aws.setAwsRegion('us-west-2');
+
         return aws.getAuthenticatedURL(bucketname, path);
     }
 
