@@ -3,9 +3,6 @@ component {
     property name="aws" inject="AmazonS3@s3sdk";
 
     function run() {
-        aws.setAccessKey('AKIAWXG4ZE6XXOT4ZMVF');
-        aws.setSecretKey('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');
-        aws.setAwsRegion('us-west-2');
         print.line('variables set');
 
         var restore = restoreDB(
