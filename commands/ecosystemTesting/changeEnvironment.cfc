@@ -1,7 +1,7 @@
 component {
 
-    function run(environment = 'development') {
-        command('')
-    }
+	function run( environment = "development" ){
+		command( "" )
+	}
 
 }

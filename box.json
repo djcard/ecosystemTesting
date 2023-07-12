@@ -4,7 +4,8 @@
     "changelog":"",
     "contributors":[],
     "dependencies":{
-        "s3sdk":"^5.7.0+91"
+        "s3sdk":"^5.7.0+91",
+        "commandbox-cbdatasource":"^0.0.2"
     },
     "description":"",
     "devDependencies":{},
@@ -16,7 +17,8 @@
         "/tests/"
     ],
     "installPaths":{
-        "s3sdk":"modules/s3sdk/"
+        "s3sdk":"modules/s3sdk/",
+        "commandbox-cbdatasource":"modules/commandbox-cbdatasource/"
     },
     "instructions":"",
     "keywords":[],
@@ -60,5 +62,5 @@
         "watchPaths":"**.cfc"
     },
     "type":"commandbox-modules",
-    "version":"0.0.68"
+    "version":"0.0.81"
 }

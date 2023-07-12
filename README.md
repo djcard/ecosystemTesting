@@ -76,6 +76,14 @@ Example script for a JS site
 To run an external file either use something like `recipe myScript.boxr`, `!myScript.bat` or `!bash myScript.sh`.
 
 # Changelog
+0.0.81 - made the parent branch for evergreening an option at run time
+0.0.80 - fixed typo in createDatasource
+0.0.79 - Added commandbox-cbdatasource as dependency; fixed issue in creating datasource immediately after adding database settings. 
+0.0.78 - Fixed problem with binary files being corrupted during the upload to S3
+0.0.74 - Added TRY CATCH to the restore db statement
+0.0.73 - renamed variables in restore to make directions clearer. 
+0.0.70 - Added slash directions for different OS
+0.0.69 - added DB support
 0.0.68 - added force rebuild of JS sites
 0.0.67 - post install restart of docker edited
 0.0.65 - better handling for project data for projects which don't exist

@@ -8,6 +8,10 @@ component {
         return server.os.name == 'Linux' ? 'sudo' : '';
     }
 
+    function obtainDelim() {
+        return server.os.name == 'Linux' ? '/' : '\';
+    }
+
     function checkModuleKeyExists() {
         print.line(settings);
         if (!settings.keyExists('modules')) {
@@ -65,7 +69,7 @@ component {
         fileWrite(folderpath & 'ecosystemTesting.json', serializeJSON(arguments.data));
     }
 
-    function obtainProjectSettings(projectName){
+    function obtainProjectSettings(projectName) {
         return settings.modules.ecosystemTesting.keyExists(projectName) ? settings.modules.ecosystemTesting[projectName] : {};
     }
 

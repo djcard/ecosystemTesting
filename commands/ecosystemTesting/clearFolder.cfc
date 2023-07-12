@@ -1,9 +1,9 @@
 component {
 
-    property name="core" inject="core@ecosystemTesting";
+	property name="core" inject="core@ecosystemTesting";
 
-    function run(folder) {
-        core.clearFolder(getcwd() & '/folder');
-    }
+	function run( folder ){
+		core.clearFolder( getcwd() & "/folder" );
+	}
 
 }
