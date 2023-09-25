@@ -5,7 +5,7 @@ component {
     property name="base" inject="BaseCommand";
     property name="aws" inject="AmazonS3@s3sdk";
 
-    function createDataSourceFromSettings(required string projectName, required string role, dbData) {
+    function createDataSourceFromSettings(required string projectName, required string role) {
         var projectSettings = core.obtainProjectSettings(projectName);
         print.line(projectSettings);
         var dbdata = !isNull(arguments.dbData) ? arguments.dbData : projectSettings.keyExists('dbs') && projectSettings.dbs.keyExists(role) ? projectSettings.dbs[role] : {};
@@ -29,7 +29,7 @@ component {
         dbReadFrom,
         writeTo,
         backup = false,
-        datasource
+        datasource = "target"
     ) {
         var delim = core.obtainDelim();
         var dataPath = '#writeTo##delim##ARGUMENTS.NAME#.mdf';
