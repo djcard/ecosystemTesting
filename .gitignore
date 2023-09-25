@@ -1,3 +1,5 @@
 .idea/.gitignore
 .idea/
 modules/
+s3sdk/
+s3sdkEDITED/

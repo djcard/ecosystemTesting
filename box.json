@@ -4,7 +4,7 @@
     "changelog":"",
     "contributors":[],
     "dependencies":{
-        "s3sdk":"^5.7.0+91",
+        "s3sdk":"5.8.0-snapshot",
         "commandbox-cbdatasource":"^0.0.2"
     },
     "description":"",
